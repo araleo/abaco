@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
 import { shuffleArray } from '../../util/lib';
+import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
 const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
@@ -12,6 +13,7 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
   const [first, setFirst] = useState<number>(0);
   const [last, setLast] = useState<number>(size - 1);
   const [selected, setSelected] = useState<number[]>([]);
+  const [time, setTime] = useState<number>(0);
 
   useEffect(() => {
     createLevel();
@@ -52,9 +54,11 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
 
   const handleReset = () => {
     setSelected([first, last]);
+    setTime(0);
   };
 
   const handleNewLevel = () => {
+    handleReset();
     createLevel();
   };
 
@@ -98,6 +102,7 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
       </View>
       <View style={styles.title}>
         <Text>Placeholder para o relogio</Text>
+        <Stopwatch count={time} setCount={setTime} />
       </View>
       {renderLevel()}
       <View style={styles.title}>
