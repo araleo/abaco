@@ -1,0 +1,14 @@
+{
+  "index": 0,
+  "name": "",
+  "tooltip": "Você consegue contar até 5?",
+  "rows": 5,
+  "cols": 1,
+  "size": 5,
+  "baseTime": 60,
+  "data": [1, 2, 3, 4, 5],
+  "solution": [1, 2, 3, 4, 5],
+  "first": 1,
+  "last": 10,
+  "shuffle": false
+}

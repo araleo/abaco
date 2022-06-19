@@ -1,22 +1,35 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
-import { shuffleArray } from '../../util/lib';
+import { compareArrays, shuffleArray } from '../../util/lib';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
-const Level: React.FC<{
+export interface ILevelData {
+  id: number;
+  name: string;
+  tooltip: string;
   rows: number;
   cols: number;
   size: number;
-  maxTime: number;
+  baseTime: number;
+  data: number[];
+  solution: number[];
+  first: number;
+  last: number;
+  shuffle: boolean;
+}
+
+const Level: React.FC<{
+  levelData: ILevelData;
+  running: boolean;
+  setRunning: (run: boolean) => void;
   setScore: (score: number) => void;
+  setLifes: (lifes: number) => void;
   showMenu: (show: boolean) => void;
-}> = ({ rows, cols, size, maxTime, setScore, showMenu }) => {
+}> = ({ levelData, running, setRunning, setScore, setLifes, showMenu }) => {
   const [level, setLevel] = useState<number[][]>([]);
-  const [first, setFirst] = useState<number>(0);
-  const [last, setLast] = useState<number>(size - 1);
   const [selected, setSelected] = useState<number[]>([]);
-  const [time, setTime] = useState<number>(maxTime);
+  const [time, setTime] = useState<number>(levelData.baseTime);
   const [win, setWin] = useState<boolean>(false);
 
   useEffect(() => {
@@ -24,32 +37,32 @@ const Level: React.FC<{
   }, []);
 
   useEffect(() => {
-    setFirst(0);
-    setLast(size - 1);
+    setRunning(true);
   }, [level]);
 
   useEffect(() => {
-    setSelected((selected) => [...selected, first]);
-  }, [first]);
-
-  useEffect(() => {
-    setSelected((selected) => [...selected, last]);
-  }, [last]);
-
-  useEffect(() => {
-    if (selected.length === size) {
+    if (compareArrays(selected, levelData.solution)) {
       setScore(time);
       setWin(true);
+      setRunning(false);
     }
   }, [selected]);
 
+  useEffect(() => {
+    if (time <= 0) {
+      setRunning(false);
+      setLifes(-1);
+    }
+  }, [time]);
+
   const createLevel = () => {
-    const cells = [...Array(size).keys()];
-    shuffleArray(cells);
+    const cells = levelData.shuffle
+      ? shuffleArray(levelData.data)
+      : [...levelData.data];
     const newLevel = [];
-    for (let row = 0; row < rows; row++) {
+    for (let row = 0; row < levelData.rows; row++) {
       newLevel.push([] as number[]);
-      for (let col = 0; col < cols; col++) {
+      for (let col = 0; col < levelData.cols; col++) {
         const nextCell = cells.pop();
         newLevel[row].push(nextCell || 0);
       }
@@ -58,15 +71,16 @@ const Level: React.FC<{
   };
 
   const handlePress = (cell: number) => {
-    if (selected.includes(cell - 1)) {
+    if (running && selected.includes(cell - 1)) {
       setSelected((selected) => [...selected, cell]);
     }
   };
 
   const handleReset = () => {
     setWin(false);
-    setSelected([first, last]);
-    setTime(maxTime);
+    setSelected([levelData.first, levelData.last]);
+    setTime(levelData.baseTime);
+    setRunning(true);
   };
 
   const handleNewLevel = () => {
@@ -75,7 +89,7 @@ const Level: React.FC<{
   };
 
   const getBackgroundColor = (cell: number): string => {
-    const firstOrLast = cell === first || cell === last;
+    const firstOrLast = cell === levelData.first || cell === levelData.last;
     return firstOrLast ? 'blue' : selected.includes(cell) ? 'green' : '#777';
   };
 
@@ -110,13 +124,13 @@ const Level: React.FC<{
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Text>Frase marotinha com as regras do nível</Text>
+        <Text style={styles.tooltip}>{levelData.tooltip}</Text>
       </View>
       <View style={styles.title}>
-        {win ? (
-          <Text>Ganhou !!!!!</Text>
-        ) : time > 0 ? (
+        {running ? (
           <Stopwatch count={time} setCount={setTime} />
+        ) : win ? (
+          <Text>Ganhou !!!!!</Text>
         ) : (
           <Text>Perdeu!!!!</Text>
         )}
@@ -155,8 +169,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: 'black'
   },
   buttons: {
     flex: 1,
@@ -168,6 +180,9 @@ const styles = StyleSheet.create({
     flex: 6,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  tooltip: {
+    fontSize: 18,
   },
 });
 

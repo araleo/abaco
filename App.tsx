@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Level from './src/components/level/Level';
+import Level, { ILevelData } from './src/components/level/Level';
 import MenuModal from './src/components/menu/MenuModal';
 import Top from './src/components/top/Top';
 
+import levelData from './assets/levels/levels.json';
+
 const App = () => {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(true);
+  const [running, setRunning] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [lifes, setLifes] = useState<number>(3);
 
@@ -15,7 +18,7 @@ const App = () => {
   };
 
   const handleLifes = (amount: number) => {
-    setLifes(lifes + amount)
+    setLifes(lifes + amount);
   };
 
   return (
@@ -23,12 +26,12 @@ const App = () => {
       <StatusBar style='auto' />
       <Top score={score} lifes={lifes} />
       <Level
-        rows={5}
-        cols={5}
-        size={5 * 5}
-        maxTime={60}
+        levelData={levelData[0] as ILevelData}
+        running={running}
+        setRunning={setRunning}
         showMenu={setShowMenuModal}
         setScore={handleScore}
+        setLifes={handleLifes}
       />
       <MenuModal visible={showMenuModal} setModalVisible={setShowMenuModal} />
     </View>

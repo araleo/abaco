@@ -1,0 +1,50 @@
+[
+  {
+    "id": 0,
+    "name": "",
+    "tooltip": "Você consegue contar até 5?",
+    "rows": 5,
+    "cols": 1,
+    "size": 5,
+    "baseTime": 60,
+    "data": [1, 2, 3, 4, 5],
+    "solution": [1, 2, 3, 4, 5],
+    "first": 1,
+    "last": 10,
+    "shuffle": false
+  },
+  {
+    "id": 1,
+    "name": "",
+    "tooltip": "",
+    "rows": 4,
+    "cols": 4,
+    "size": 16,
+    "baseTime": 60,
+    "data": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    "solution": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    "first": 1,
+    "last": 16,
+    "shuffle": false
+  },
+  {
+    "id": 2,
+    "name": "",
+    "tooltip": "",
+    "rows": 5,
+    "cols": 5,
+    "size": 25,
+    "baseTime": 60,
+    "data": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25
+    ],
+    "solution": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25
+    ],
+    "first": 1,
+    "last": 25,
+    "shuffle": false
+  }
+]
