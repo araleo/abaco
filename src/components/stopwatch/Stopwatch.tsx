@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import useInterval from '../../util/use-interval';
 
 interface IProps {
@@ -8,17 +7,23 @@ interface IProps {
 }
 
 const Stopwatch: React.FC<IProps> = ({ count, setCount }) => {
-  const [running, setRunning] = useState<boolean>(false);
-
   useInterval(() => {
-    setCount(count + 1);
+    if (count > 0) {
+      setCount(count - 1);
+    }
   }, 1000);
 
   return (
     <View>
-      <Text>{count}</Text>
+      <Text style={styles.display}>{count}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  display: {
+    fontSize: 40,
+  },
+});
 
 export default Stopwatch;

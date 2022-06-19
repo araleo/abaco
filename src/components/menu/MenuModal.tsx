@@ -4,7 +4,6 @@ import {
   Text,
   Pressable,
   StyleSheet,
-  SafeAreaView,
 } from 'react-native';
 
 interface IProps {

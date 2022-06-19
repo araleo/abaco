@@ -4,16 +4,20 @@ import { shuffleArray } from '../../util/lib';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
-const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
-  rows,
-  cols,
-  size,
-}) => {
+const Level: React.FC<{
+  rows: number;
+  cols: number;
+  size: number;
+  maxTime: number;
+  setScore: (score: number) => void;
+  showMenu: (show: boolean) => void;
+}> = ({ rows, cols, size, maxTime, setScore, showMenu }) => {
   const [level, setLevel] = useState<number[][]>([]);
   const [first, setFirst] = useState<number>(0);
   const [last, setLast] = useState<number>(size - 1);
   const [selected, setSelected] = useState<number[]>([]);
-  const [time, setTime] = useState<number>(0);
+  const [time, setTime] = useState<number>(maxTime);
+  const [win, setWin] = useState<boolean>(false);
 
   useEffect(() => {
     createLevel();
@@ -31,6 +35,13 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
   useEffect(() => {
     setSelected((selected) => [...selected, last]);
   }, [last]);
+
+  useEffect(() => {
+    if (selected.length === size) {
+      setScore(time);
+      setWin(true);
+    }
+  }, [selected]);
 
   const createLevel = () => {
     const cells = [...Array(size).keys()];
@@ -53,8 +64,9 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
   };
 
   const handleReset = () => {
+    setWin(false);
     setSelected([first, last]);
-    setTime(0);
+    setTime(maxTime);
   };
 
   const handleNewLevel = () => {
@@ -101,13 +113,19 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
         <Text>Frase marotinha com as regras do nível</Text>
       </View>
       <View style={styles.title}>
-        <Text>Placeholder para o relogio</Text>
-        <Stopwatch count={time} setCount={setTime} />
+        {win ? (
+          <Text>Ganhou !!!!!</Text>
+        ) : time > 0 ? (
+          <Stopwatch count={time} setCount={setTime} />
+        ) : (
+          <Text>Perdeu!!!!</Text>
+        )}
       </View>
       {renderLevel()}
-      <View style={styles.title}>
+      <View style={styles.buttons}>
         <Button text='Reiniciar' onPress={handleReset} />
         <Button text='Novo Nivel' onPress={handleNewLevel} />
+        <Button text='Menu' onPress={() => showMenu(true)} />
       </View>
     </View>
   );
@@ -115,7 +133,7 @@ const Level: React.FC<{ rows: number; cols: number; size: number }> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 5,
     backgroundColor: '#333',
     alignItems: 'center',
     justifyContent: 'center',
@@ -137,9 +155,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'black'
+  },
+  buttons: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   level: {
-    flex: 3,
+    flex: 6,
     alignItems: 'center',
     justifyContent: 'center',
   },
