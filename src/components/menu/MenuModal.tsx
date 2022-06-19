@@ -1,17 +1,17 @@
-import {
-  Modal,
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-} from 'react-native';
+import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import Button from '../UI/Button';
 
 interface IProps {
   visible: boolean;
   setModalVisible: (show: boolean) => void;
+  handleStart: () => void;
 }
 
-const MenuModal: React.FC<IProps> = ({ visible, setModalVisible }) => {
+const MenuModal: React.FC<IProps> = ({
+  visible,
+  setModalVisible,
+  handleStart,
+}) => {
   return (
     <Modal
       animationType='slide'
@@ -28,9 +28,12 @@ const MenuModal: React.FC<IProps> = ({ visible, setModalVisible }) => {
             ex.
           </Text>
         </View>
-        <Pressable onPress={() => setModalVisible(false)}>
-          <Text>Iniciar</Text>
-        </Pressable>
+        <View style={styles.button}>
+          <Button text='Iniciar' onPress={() => setModalVisible(false)} />
+        </View>
+        <View style={styles.button}>
+          <Button text='Resetar' onPress={handleStart} />
+        </View>
       </View>
     </Modal>
   );
@@ -42,6 +45,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#999',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    marginBottom: 16,
+    borderColor: 'black',
   },
 });
 

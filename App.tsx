@@ -12,6 +12,7 @@ const App = () => {
   const [running, setRunning] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [lifes, setLifes] = useState<number>(3);
+  const [currentLevel, setCurrentLevel] = useState<number>(0);
 
   const handleScore = (amount: number) => {
     setScore(score + amount);
@@ -21,19 +22,35 @@ const App = () => {
     setLifes(lifes + amount);
   };
 
+  const handleStart = () => {
+    setShowMenuModal(false);
+    setCurrentLevel(0);
+  };
+
+  const handleNextLevel = () => {
+    if (currentLevel < levelData.length - 1) {
+      setCurrentLevel(currentLevel + 1);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style='auto' />
       <Top score={score} lifes={lifes} />
       <Level
-        levelData={levelData[0] as ILevelData}
+        levelData={levelData[currentLevel] as ILevelData}
         running={running}
         setRunning={setRunning}
         showMenu={setShowMenuModal}
         setScore={handleScore}
         setLifes={handleLifes}
+        nextLevel={handleNextLevel}
       />
-      <MenuModal visible={showMenuModal} setModalVisible={setShowMenuModal} />
+      <MenuModal
+        visible={showMenuModal}
+        setModalVisible={setShowMenuModal}
+        handleStart={handleStart}
+      />
     </View>
   );
 };

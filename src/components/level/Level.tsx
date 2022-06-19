@@ -19,14 +19,25 @@ export interface ILevelData {
   shuffle: boolean;
 }
 
-const Level: React.FC<{
+interface IProps {
   levelData: ILevelData;
   running: boolean;
   setRunning: (run: boolean) => void;
   setScore: (score: number) => void;
   setLifes: (lifes: number) => void;
   showMenu: (show: boolean) => void;
-}> = ({ levelData, running, setRunning, setScore, setLifes, showMenu }) => {
+  nextLevel: () => void;
+}
+
+const Level: React.FC<IProps> = ({
+  levelData,
+  running,
+  setRunning,
+  setScore,
+  setLifes,
+  showMenu,
+  nextLevel,
+}) => {
   const [level, setLevel] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[]>([]);
   const [time, setTime] = useState<number>(levelData.baseTime);
@@ -37,7 +48,7 @@ const Level: React.FC<{
   }, []);
 
   useEffect(() => {
-    setRunning(true);
+    handleReset();
   }, [level]);
 
   useEffect(() => {
@@ -84,6 +95,7 @@ const Level: React.FC<{
   };
 
   const handleNewLevel = () => {
+    nextLevel();
     handleReset();
     createLevel();
   };
