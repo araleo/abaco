@@ -1,4 +1,6 @@
 import { Modal, View, Text, StyleSheet } from 'react-native';
+import { COLORS } from '../../util/colors';
+import { BUTTONS, LOREM } from '../../util/texts';
 import Button from '../UI/Button';
 
 interface IProps {
@@ -18,18 +20,13 @@ const MenuModal: React.FC<IProps> = ({ visible, handleStart, handlePause }) => {
     >
       <View style={styles.container}>
         <View>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed aut
-            iusto ad quae ea! Soluta non laudantium ad laborum deleniti
-            voluptatum, voluptatibus quam quisquam itaque id, quasi illo odit
-            ex.
-          </Text>
+          <Text>{LOREM}</Text>
         </View>
         <View style={styles.button}>
-          <Button text='Iniciar' onPress={handleStart} />
+          <Button text={BUTTONS.start} onPress={handleStart} />
         </View>
         <View style={styles.button}>
-          <Button text='Continuar' onPress={handlePause} />
+          <Button text={BUTTONS.continue} onPress={handlePause} />
         </View>
       </View>
     </Modal>
@@ -39,7 +36,7 @@ const MenuModal: React.FC<IProps> = ({ visible, handleStart, handlePause }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#999',
+    backgroundColor: COLORS.lightestGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },

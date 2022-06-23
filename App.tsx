@@ -6,14 +6,16 @@ import MenuModal from './src/components/menu/MenuModal';
 import Top from './src/components/top/Top';
 
 import levelData from './assets/levels/levels.json';
+import { BASE_LIFES } from './src/util/constants';
+import { COLORS } from './src/util/colors';
 
 const App = () => {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
   const [pause, setPause] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
-  const [lifes, setLifes] = useState<number>(3);
   const [level, setLevel] = useState<number>(0);
+  const [lifes, setLifes] = useState<number>(BASE_LIFES);
 
   const handleScore = (amount: number) => {
     setScore(score + amount);
@@ -72,7 +74,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: COLORS.darkGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },

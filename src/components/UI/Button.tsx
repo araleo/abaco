@@ -1,4 +1,5 @@
 import { Pressable, Text, StyleSheet } from 'react-native';
+import { COLORS } from '../../util/colors';
 
 interface IProps {
   text: string;
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    borderColor: '#222',
+    borderColor: COLORS.darkestGrey,
     borderRadius: 20,
   },
   buttonText: {
@@ -33,6 +34,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   disabled: {
-    backgroundColor: '#222',
+    backgroundColor: COLORS.darkestGrey,
   },
 });

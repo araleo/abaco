@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
+import { COLORS } from '../../util/colors';
 import { shuffleArray } from '../../util/lib';
+import { BUTTONS, MESSAGES } from '../../util/texts';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
@@ -91,7 +93,6 @@ const Level: React.FC<IProps> = ({
     setWin(false);
     setSelected([levelData.first, levelData.last]);
     setTime(levelData.baseTime);
-    // setRunning(true);
   };
 
   const handleNextLevel = () => {
@@ -100,8 +101,11 @@ const Level: React.FC<IProps> = ({
   };
 
   const getCellBackgroundColor = (cell: number): string => {
-    const firstOrLast = cell === levelData.first || cell === levelData.last;
-    return firstOrLast ? 'blue' : selected.includes(cell) ? 'green' : '#777';
+    return cell === levelData.first || cell === levelData.last
+      ? COLORS.detail
+      : selected.includes(cell)
+      ? COLORS.success
+      : COLORS.lightGrey;
   };
 
   const renderCell = (cell: number): JSX.Element => {
@@ -141,16 +145,20 @@ const Level: React.FC<IProps> = ({
         {running === true ? (
           <Stopwatch count={time} setCount={setTime} />
         ) : win ? (
-          <Text>Ganhou !!!!!</Text>
+          <Text>{MESSAGES.levelWin}</Text>
         ) : (
-          <Text>Perdeu!!!!</Text>
+          <Text>{MESSAGES.levelLose}</Text>
         )}
       </View>
       {renderLevel()}
       <View style={styles.buttons}>
-        <Button text='Reiniciar' onPress={handleReset} />
-        <Button text='Novo Nivel' onPress={handleNextLevel} disabled={!win} />
-        <Button text='Menu' onPress={showMenu} />
+        <Button text={BUTTONS.reset} onPress={handleReset} />
+        <Button
+          text={BUTTONS.newLevel}
+          onPress={handleNextLevel}
+          disabled={!win}
+        />
+        <Button text={BUTTONS.menu} onPress={showMenu} />
       </View>
     </View>
   );
@@ -159,7 +167,7 @@ const Level: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 5,
-    backgroundColor: '#333',
+    backgroundColor: COLORS.darkGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -168,7 +176,7 @@ const styles = StyleSheet.create({
   },
   cell: {
     borderWidth: 1,
-    backgroundColor: '#777',
+    backgroundColor: COLORS.lightGrey,
     borderColor: 'black',
     width: 75,
     height: 75,
