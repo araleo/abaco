@@ -14,3 +14,10 @@ export const compareArrays = (a1: any[], a2: any[]) => {
   }
   return true;
 };
+
+export const compareSolution = (answer: any[], solution: any[]) => {
+  if (answer.length !== solution.length) {
+    return false;
+  }
+  return compareArrays(answer, solution);
+};

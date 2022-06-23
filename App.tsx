@@ -9,10 +9,11 @@ import levelData from './assets/levels/levels.json';
 
 const App = () => {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(true);
-  const [running, setRunning] = useState<boolean>(false);
+  const [start, setStart] = useState<boolean>(false);
+  const [pause, setPause] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [lifes, setLifes] = useState<number>(3);
-  const [currentLevel, setCurrentLevel] = useState<number>(0);
+  const [level, setLevel] = useState<number>(0);
 
   const handleScore = (amount: number) => {
     setScore(score + amount);
@@ -24,13 +25,25 @@ const App = () => {
 
   const handleStart = () => {
     setShowMenuModal(false);
-    setCurrentLevel(0);
+    setLevel(0);
+    setStart(true);
+    setPause(false);
   };
 
   const handleNextLevel = () => {
-    if (currentLevel < levelData.length - 1) {
-      setCurrentLevel(currentLevel + 1);
+    if (level < levelData.length - 1) {
+      setLevel(level + 1);
     }
+  };
+
+  const handleOpenPauseMenu = () => {
+    setPause(true);
+    setShowMenuModal(true);
+  };
+
+  const handleClosePauseMenu = () => {
+    setShowMenuModal(false);
+    setPause(false);
   };
 
   return (
@@ -38,10 +51,10 @@ const App = () => {
       <StatusBar style='auto' />
       <Top score={score} lifes={lifes} />
       <Level
-        levelData={levelData[currentLevel] as ILevelData}
-        running={running}
-        setRunning={setRunning}
-        showMenu={setShowMenuModal}
+        levelData={levelData[level] as ILevelData}
+        running={start && !pause}
+        setPause={setPause}
+        showMenu={handleOpenPauseMenu}
         setScore={handleScore}
         setLifes={handleLifes}
         nextLevel={handleNextLevel}
@@ -50,6 +63,7 @@ const App = () => {
         visible={showMenuModal}
         setModalVisible={setShowMenuModal}
         handleStart={handleStart}
+        handlePause={handleClosePauseMenu}
       />
     </View>
   );

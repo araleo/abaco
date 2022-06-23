@@ -22,17 +22,17 @@ export interface ILevelData {
 interface IProps {
   levelData: ILevelData;
   running: boolean;
-  setRunning: (run: boolean) => void;
+  setPause: (run: boolean) => void;
   setScore: (score: number) => void;
   setLifes: (lifes: number) => void;
-  showMenu: (show: boolean) => void;
+  showMenu: () => void;
   nextLevel: () => void;
 }
 
 const Level: React.FC<IProps> = ({
   levelData,
   running,
-  setRunning,
+  setPause,
   setScore,
   setLifes,
   showMenu,
@@ -45,23 +45,23 @@ const Level: React.FC<IProps> = ({
 
   useEffect(() => {
     createLevel();
-  }, []);
+  }, [levelData]);
 
   useEffect(() => {
     handleReset();
   }, [level]);
 
   useEffect(() => {
-    if (compareArrays(selected, levelData.solution)) {
+    if (selected.length === levelData.solution.length) {
       setScore(time);
       setWin(true);
-      setRunning(false);
+      setPause(true);
     }
   }, [selected]);
 
   useEffect(() => {
     if (time <= 0) {
-      setRunning(false);
+      setPause(true);
       setLifes(-1);
     }
   }, [time]);
@@ -91,22 +91,21 @@ const Level: React.FC<IProps> = ({
     setWin(false);
     setSelected([levelData.first, levelData.last]);
     setTime(levelData.baseTime);
-    setRunning(true);
+    // setRunning(true);
   };
 
-  const handleNewLevel = () => {
+  const handleNextLevel = () => {
     nextLevel();
-    handleReset();
-    createLevel();
+    setPause(false);
   };
 
-  const getBackgroundColor = (cell: number): string => {
+  const getCellBackgroundColor = (cell: number): string => {
     const firstOrLast = cell === levelData.first || cell === levelData.last;
     return firstOrLast ? 'blue' : selected.includes(cell) ? 'green' : '#777';
   };
 
   const renderCell = (cell: number): JSX.Element => {
-    const backgroundColor = getBackgroundColor(cell);
+    const backgroundColor = getCellBackgroundColor(cell);
     return (
       <Pressable
         onPress={() => {
@@ -139,7 +138,7 @@ const Level: React.FC<IProps> = ({
         <Text style={styles.tooltip}>{levelData.tooltip}</Text>
       </View>
       <View style={styles.title}>
-        {running ? (
+        {running === true ? (
           <Stopwatch count={time} setCount={setTime} />
         ) : win ? (
           <Text>Ganhou !!!!!</Text>
@@ -150,8 +149,8 @@ const Level: React.FC<IProps> = ({
       {renderLevel()}
       <View style={styles.buttons}>
         <Button text='Reiniciar' onPress={handleReset} />
-        <Button text='Novo Nivel' onPress={handleNewLevel} />
-        <Button text='Menu' onPress={() => showMenu(true)} />
+        <Button text='Novo Nivel' onPress={handleNextLevel} />
+        <Button text='Menu' onPress={showMenu} />
       </View>
     </View>
   );

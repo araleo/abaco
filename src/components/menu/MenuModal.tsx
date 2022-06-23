@@ -5,13 +5,10 @@ interface IProps {
   visible: boolean;
   setModalVisible: (show: boolean) => void;
   handleStart: () => void;
+  handlePause: () => void;
 }
 
-const MenuModal: React.FC<IProps> = ({
-  visible,
-  setModalVisible,
-  handleStart,
-}) => {
+const MenuModal: React.FC<IProps> = ({ visible, handleStart, handlePause }) => {
   return (
     <Modal
       animationType='slide'
@@ -29,10 +26,10 @@ const MenuModal: React.FC<IProps> = ({
           </Text>
         </View>
         <View style={styles.button}>
-          <Button text='Iniciar' onPress={() => setModalVisible(false)} />
+          <Button text='Iniciar' onPress={handleStart} />
         </View>
         <View style={styles.button}>
-          <Button text='Resetar' onPress={handleStart} />
+          <Button text='Continuar' onPress={handlePause} />
         </View>
       </View>
     </Modal>
