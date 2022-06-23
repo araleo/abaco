@@ -12,8 +12,11 @@ export const LABELS = {
 };
 
 export const MESSAGES = {
+  gameOver: 'Game Over.',
   levelLose: 'Perdeu!',
   levelWin: 'Muito bem!',
+  score: 'Sua pontuação',
+  youWin: 'Parabéns! Você concluiu todos os níveis. Aguarde o lançamento dos próximos.'
 };
 
 export const LOREM =

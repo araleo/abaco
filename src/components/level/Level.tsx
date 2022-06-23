@@ -50,7 +50,7 @@ const Level: React.FC<IProps> = ({
   }, [levelData]);
 
   useEffect(() => {
-    handleReset();
+    resetLevel();
   }, [level]);
 
   useEffect(() => {
@@ -89,10 +89,15 @@ const Level: React.FC<IProps> = ({
     }
   };
 
-  const handleReset = () => {
+  const resetLevel = () => {
     setWin(false);
     setSelected([levelData.first, levelData.last]);
     setTime(levelData.baseTime);
+  };
+
+  const handleReset = () => {
+    resetLevel();
+    setPause(false);
   };
 
   const handleNextLevel = () => {
