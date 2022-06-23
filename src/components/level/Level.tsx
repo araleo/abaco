@@ -149,7 +149,7 @@ const Level: React.FC<IProps> = ({
       {renderLevel()}
       <View style={styles.buttons}>
         <Button text='Reiniciar' onPress={handleReset} />
-        <Button text='Novo Nivel' onPress={handleNextLevel} />
+        <Button text='Novo Nivel' onPress={handleNextLevel} disabled={!win} />
         <Button text='Menu' onPress={showMenu} />
       </View>
     </View>
