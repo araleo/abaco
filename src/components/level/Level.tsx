@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
-import { compareArrays, shuffleArray } from '../../util/lib';
+import { shuffleArray } from '../../util/lib';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
