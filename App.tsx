@@ -84,6 +84,7 @@ const App = () => {
       )}
       <MenuModal
         visible={showMenuModal}
+        started={start}
         setModalVisible={setShowMenuModal}
         handleStart={handleStart}
         handlePause={handleClosePauseMenu}

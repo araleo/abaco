@@ -185,6 +185,8 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     width: 75,
     height: 75,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cellText: {
     fontSize: 22,

@@ -12,7 +12,7 @@ const EndScreen: React.FC<IProps> = ({ text, score, handleRestart }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.display}>{text}</Text>
-      <Text>
+      <Text style={styles.display}>
         {MESSAGES.score}: {score.toString()}
       </Text>
       <Button text={BUTTONS.start} onPress={handleRestart} />
@@ -26,8 +26,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    borderColor: 'black',
-    borderWidth: 2,
   },
   display: {
     fontSize: 20,

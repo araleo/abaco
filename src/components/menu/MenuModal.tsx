@@ -5,12 +5,18 @@ import Button from '../UI/Button';
 
 interface IProps {
   visible: boolean;
+  started: boolean;
   setModalVisible: (show: boolean) => void;
   handleStart: () => void;
   handlePause: () => void;
 }
 
-const MenuModal: React.FC<IProps> = ({ visible, handleStart, handlePause }) => {
+const MenuModal: React.FC<IProps> = ({
+  visible,
+  started,
+  handleStart,
+  handlePause,
+}) => {
   return (
     <Modal
       animationType='slide'
@@ -22,11 +28,16 @@ const MenuModal: React.FC<IProps> = ({ visible, handleStart, handlePause }) => {
         <View>
           <Text>{LOREM}</Text>
         </View>
+        {started && (
+          <View style={styles.button}>
+            <Button text={BUTTONS.continue} onPress={handlePause} />
+          </View>
+        )}
         <View style={styles.button}>
-          <Button text={BUTTONS.start} onPress={handleStart} />
-        </View>
-        <View style={styles.button}>
-          <Button text={BUTTONS.continue} onPress={handlePause} />
+          <Button
+            text={started ? BUTTONS.reset : BUTTONS.start}
+            onPress={handleStart}
+          />
         </View>
       </View>
     </Modal>
