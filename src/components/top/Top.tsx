@@ -1,5 +1,4 @@
 import { View, StyleSheet, Text } from 'react-native';
-import { COLORS } from '../../util/colors';
 import { LABELS } from '../../util/texts';
 
 interface IProps {
@@ -24,7 +23,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: COLORS.darkGrey,
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',

@@ -172,7 +172,7 @@ const Level: React.FC<IProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 5,
-    backgroundColor: COLORS.darkGrey,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },

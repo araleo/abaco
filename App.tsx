@@ -96,7 +96,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.darkGrey,
+    backgroundColor: COLORS.lightestGrey,
     alignItems: 'center',
     justifyContent: 'center',
   },
