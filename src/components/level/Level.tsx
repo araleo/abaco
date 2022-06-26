@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
 import { COLORS } from '../../util/colors';
 import { shuffleArray } from '../../util/lib';
-import { BUTTONS, MESSAGES } from '../../util/texts';
+import { BUTTONS } from '../../util/texts';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
 
@@ -24,26 +24,27 @@ export interface ILevelData {
 interface IProps {
   levelData: ILevelData;
   running: boolean;
+  tries: number;
   setPause: (run: boolean) => void;
   setScore: (score: number) => void;
   setLifes: (lifes: number) => void;
   showMenu: () => void;
-  nextLevel: () => void;
+  endLevel: () => void;
 }
 
 const Level: React.FC<IProps> = ({
   levelData,
   running,
+  tries,
   setPause,
   setScore,
   setLifes,
   showMenu,
-  nextLevel,
+  endLevel,
 }) => {
   const [level, setLevel] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[]>([]);
   const [time, setTime] = useState<number>(levelData.baseTime);
-  const [win, setWin] = useState<boolean>(false);
 
   useEffect(() => {
     createLevel();
@@ -51,20 +52,20 @@ const Level: React.FC<IProps> = ({
 
   useEffect(() => {
     resetLevel();
-  }, [level]);
+  }, [level, tries]);
 
   useEffect(() => {
     if (selected.length === levelData.solution.length) {
       setScore(time);
-      setWin(true);
-      setPause(true);
+      endLevel();
     }
   }, [selected]);
 
   useEffect(() => {
     if (time <= 0) {
-      setPause(true);
+      setScore(0);
       setLifes(-1);
+      endLevel();
     }
   }, [time]);
 
@@ -90,18 +91,12 @@ const Level: React.FC<IProps> = ({
   };
 
   const resetLevel = () => {
-    setWin(false);
     setSelected([levelData.first, levelData.last]);
     setTime(levelData.baseTime);
   };
 
   const handleReset = () => {
     resetLevel();
-    setPause(false);
-  };
-
-  const handleNextLevel = () => {
-    nextLevel();
     setPause(false);
   };
 
@@ -149,20 +144,13 @@ const Level: React.FC<IProps> = ({
       <View style={styles.title}>
         {running === true ? (
           <Stopwatch count={time} setCount={setTime} />
-        ) : win ? (
-          <Text>{MESSAGES.levelWin}</Text>
         ) : (
-          <Text>{MESSAGES.levelLose}</Text>
+          <Text>{time}</Text>
         )}
       </View>
       {renderLevel()}
       <View style={styles.buttons}>
         <Button text={BUTTONS.reset} onPress={handleReset} />
-        <Button
-          text={BUTTONS.newLevel}
-          onPress={handleNextLevel}
-          disabled={!win}
-        />
         <Button text={BUTTONS.menu} onPress={showMenu} />
       </View>
     </View>
@@ -200,7 +188,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
   },
   level: {
     flex: 6,

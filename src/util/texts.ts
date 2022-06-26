@@ -1,7 +1,9 @@
 export const BUTTONS = {
   continue: 'Continuar',
+  items: 'Itens',
   menu: 'Menu',
   newLevel: 'Novo Nível',
+  nextLevel: 'Próximo Nível',
   reset: 'Reiniciar',
   start: 'Iniciar',
 };
@@ -14,9 +16,12 @@ export const LABELS = {
 export const MESSAGES = {
   gameOver: 'Game Over.',
   levelLose: 'Perdeu!',
+  levelScore: 'Pontos (nível)',
   levelWin: 'Muito bem!',
   score: 'Sua pontuação',
-  youWin: 'Parabéns! Você concluiu todos os níveis. Aguarde o lançamento dos próximos.'
+  totalScore: 'Pontos (total)',
+  youWin:
+    'Parabéns! Você concluiu todos os níveis. Aguarde o lançamento dos próximos.',
 };
 
 export const LOREM =
