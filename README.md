@@ -10,7 +10,7 @@ npm start
 
 - [x] Add lifes
 - [x] Add levels
-  - [ ] "Memory" levels (numbers are hidden and only appear on short time windows)
+  - [x] "Memory" levels (numbers are hidden and only appear on short time windows)
   - [ ] "Modulo" levels (solution is the set of numbers divisible by X)
 - [ ] Add items
   - [ ] Item to increase time for the next X levels

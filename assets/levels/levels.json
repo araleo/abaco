@@ -11,7 +11,8 @@
     "solution": [1, 2, 3, 4, 5],
     "first": 1,
     "last": 5,
-    "shuffle": false
+    "shuffle": false,
+    "memory": null
   },
   {
     "id": 1,
@@ -25,7 +26,8 @@
     "solution": [1, 2, 3, 4, 5],
     "first": 1,
     "last": 5,
-    "shuffle": true
+    "shuffle": true,
+    "memory": null
   },
   {
     "id": 2,
@@ -39,7 +41,8 @@
     "solution": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     "first": 1,
     "last": 10,
-    "shuffle": true
+    "shuffle": true,
+    "memory": null
   },
   {
     "id": 3,
@@ -53,7 +56,8 @@
     "solution": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
     "first": 1,
     "last": 16,
-    "shuffle": true
+    "shuffle": true,
+    "memory": null
   },
   {
     "id": 4,
@@ -73,7 +77,8 @@
     ],
     "first": 1,
     "last": 25,
-    "shuffle": true
+    "shuffle": true,
+    "memory": null
   },
   {
     "id": 5,
@@ -93,6 +98,47 @@
     ],
     "first": 1,
     "last": 25,
-    "shuffle": true
+    "shuffle": true,
+    "memory": null
+  },
+  {
+    "id": 6,
+    "name": "",
+    "tooltip": "Você consegue se lembrar?",
+    "rows": 4,
+    "cols": 4,
+    "size": 16,
+    "baseTime": 60,
+    "data": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    ],
+    "solution": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+    ],
+    "first": 1,
+    "last": 16,
+    "shuffle": true,
+    "memory": 3
+  },
+  {
+    "id": 7,
+    "name": "",
+    "tooltip": "Consegue mesmo?",
+    "rows": 5,
+    "cols": 5,
+    "size": 25,
+    "baseTime": 60,
+    "data": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25
+    ],
+    "solution": [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25
+    ],
+    "first": 1,
+    "last": 25,
+    "shuffle": true,
+    "memory": 3
   }
 ]

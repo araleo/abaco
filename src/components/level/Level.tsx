@@ -19,6 +19,7 @@ export interface ILevelData {
   first: number;
   last: number;
   shuffle: boolean;
+  memory: null | number;
 }
 
 interface IProps {
@@ -45,6 +46,7 @@ const Level: React.FC<IProps> = ({
   const [level, setLevel] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[]>([]);
   const [time, setTime] = useState<number>(levelData.baseTime);
+  const [renderCellText, setRenderCellText] = useState<boolean>(true);
 
   useEffect(() => {
     createLevel();
@@ -62,6 +64,11 @@ const Level: React.FC<IProps> = ({
   }, [selected]);
 
   useEffect(() => {
+    const memory = levelData.memory;
+    if (memory !== null && time < levelData.baseTime && time % memory === 0) {
+      setRenderCellText(!renderCellText);
+    }
+
     if (time <= 0) {
       setScore(0);
       setLifes(-1);
@@ -91,6 +98,7 @@ const Level: React.FC<IProps> = ({
   };
 
   const resetLevel = () => {
+    setRenderCellText(true);
     setSelected([levelData.first, levelData.last]);
     setTime(levelData.baseTime);
   };
@@ -117,7 +125,9 @@ const Level: React.FC<IProps> = ({
         }}
         style={[styles.cell, { backgroundColor }]}
       >
-        <Text style={styles.cellText}>{cell.toString()}</Text>
+        {renderCellText && (
+          <Text style={styles.cellText}>{cell.toString()}</Text>
+        )}
       </Pressable>
     );
   };
