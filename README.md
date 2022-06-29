@@ -16,7 +16,7 @@ npm start
   - [ ] Item to grant X lifes
   - [ ] Item to double score in the next level
 - [x] Add scoring system
-  - [ ] Each round has a base score according to it's difficulty
-  - [ ] Each unsucesful try on a level reduces it's base score
+  - [x] Each round has a base score according to it's difficulty
+  - [x] Each unsucesful try on a level reduces it's base score
 - [ ] Add tests
 - [ ] UI

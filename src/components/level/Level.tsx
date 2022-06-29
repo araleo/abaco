@@ -14,6 +14,7 @@ export interface ILevelData {
   cols: number;
   size: number;
   baseTime: number;
+  baseScore: number;
   data: number[];
   solution: number[];
   first: number;
@@ -59,7 +60,8 @@ const Level: React.FC<IProps> = ({
 
   useEffect(() => {
     if (compareArrays(levelData.solution, selected)) {
-      setScore(time);
+      const levelScore = Math.max(time + levelData.baseScore - tries * 10, 0);
+      setScore(levelScore);
       endLevel();
     } else {
       handleNextCell();
