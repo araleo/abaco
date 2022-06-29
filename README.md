@@ -11,7 +11,7 @@ npm start
 - [x] Add lifes
 - [x] Add levels
   - [x] "Memory" levels (numbers are hidden and only appear on short time windows)
-  - [ ] "Modulo" levels (solution is the set of numbers divisible by X)
+  - [x] "Modulo" levels (solution is the set of numbers divisible by X)
 - [ ] Add items
   - [ ] Item to increase time for the next X levels
   - [ ] Item to slow time for the next X levels
@@ -19,5 +19,6 @@ npm start
   - [ ] Item to grant X lifes
 - [x] Add scoring system
   - [ ] Each round has a base score according to it's difficulty
+  - [ ] Each unsucesful try on a level reduces it's base score
 - [ ] Add tests
 - [ ] UI

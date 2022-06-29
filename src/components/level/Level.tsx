@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, Text } from 'react-native';
 import { COLORS } from '../../util/colors';
-import { shuffleArray } from '../../util/lib';
+import { compareArrays, shuffleArray } from '../../util/lib';
 import { BUTTONS } from '../../util/texts';
 import Stopwatch from '../stopwatch/Stopwatch';
 import Button from '../UI/Button';
@@ -47,6 +47,7 @@ const Level: React.FC<IProps> = ({
   const [selected, setSelected] = useState<number[]>([]);
   const [time, setTime] = useState<number>(levelData.baseTime);
   const [renderCellText, setRenderCellText] = useState<boolean>(true);
+  const [nextCell, setNextCell] = useState<number>(0);
 
   useEffect(() => {
     createLevel();
@@ -57,9 +58,11 @@ const Level: React.FC<IProps> = ({
   }, [level, tries]);
 
   useEffect(() => {
-    if (selected.length === levelData.solution.length) {
+    if (compareArrays(levelData.solution, selected)) {
       setScore(time);
       endLevel();
+    } else {
+      handleNextCell();
     }
   }, [selected]);
 
@@ -84,22 +87,30 @@ const Level: React.FC<IProps> = ({
     for (let row = 0; row < levelData.rows; row++) {
       newLevel.push([] as number[]);
       for (let col = 0; col < levelData.cols; col++) {
-        const nextCell = cells.pop();
-        newLevel[row].push(nextCell || 0);
+        const cell = cells.pop();
+        newLevel[row].push(cell || 0);
       }
     }
     setLevel(newLevel);
   };
 
+  const handleNextCell = () => {
+    if (selected.length < 1) return;
+    const current = selected[selected.length - 1];
+    const currentIndexInSolution = levelData.solution.indexOf(current);
+    const next = levelData.solution[currentIndexInSolution + 1];
+    setNextCell(next);
+  };
+
   const handlePress = (cell: number) => {
-    if (running && selected.includes(cell - 1)) {
+    if (running && cell === nextCell) {
       setSelected((selected) => [...selected, cell]);
     }
   };
 
   const resetLevel = () => {
     setRenderCellText(true);
-    setSelected([levelData.first, levelData.last]);
+    setSelected([levelData.first]);
     setTime(levelData.baseTime);
   };
 
@@ -109,11 +120,15 @@ const Level: React.FC<IProps> = ({
   };
 
   const getCellBackgroundColor = (cell: number): string => {
-    return cell === levelData.first || cell === levelData.last
-      ? COLORS.detail
-      : selected.includes(cell)
-      ? COLORS.success
-      : COLORS.lightGrey;
+    if (cell === levelData.first) {
+      return COLORS.detail;
+    } else if (cell === levelData.last && selected.includes(cell)) {
+      return COLORS.detail;
+    } else if (selected.includes(cell)) {
+      return COLORS.success;
+    } else {
+      return COLORS.lightGrey;
+    }
   };
 
   const renderCell = (cell: number): JSX.Element => {
