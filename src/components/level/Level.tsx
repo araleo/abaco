@@ -27,10 +27,11 @@ interface IProps {
   levelData: ILevelData;
   running: boolean;
   tries: number;
-  setPause: (run: boolean) => void;
+  extraTime: number;
   setScore: (score: number) => void;
   setLifes: (lifes: number) => void;
-  showMenu: () => void;
+  pauseMenu: () => void;
+  itemsMenu: () => void;
   endLevel: () => void;
 }
 
@@ -38,15 +39,16 @@ const Level: React.FC<IProps> = ({
   levelData,
   running,
   tries,
-  setPause,
+  extraTime,
   setScore,
   setLifes,
-  showMenu,
+  pauseMenu,
+  itemsMenu,
   endLevel,
 }) => {
   const [level, setLevel] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[]>([]);
-  const [time, setTime] = useState<number>(levelData.baseTime);
+  const [time, setTime] = useState<number>(levelData.baseTime + extraTime);
   const [renderCellText, setRenderCellText] = useState<boolean>(true);
   const [nextCell, setNextCell] = useState<number>(0);
 
@@ -57,6 +59,10 @@ const Level: React.FC<IProps> = ({
   useEffect(() => {
     resetLevel();
   }, [level, tries]);
+
+  useEffect(() => {
+    setTime(time + extraTime);
+  }, [extraTime]);
 
   useEffect(() => {
     if (compareArrays(levelData.solution, selected)) {
@@ -70,7 +76,11 @@ const Level: React.FC<IProps> = ({
 
   useEffect(() => {
     const memory = levelData.memory;
-    if (memory !== null && time < levelData.baseTime && time % memory === 0) {
+    if (
+      memory !== null &&
+      time < levelData.baseTime + extraTime &&
+      time % memory === 0
+    ) {
       setRenderCellText(!renderCellText);
     }
 
@@ -113,12 +123,7 @@ const Level: React.FC<IProps> = ({
   const resetLevel = () => {
     setRenderCellText(true);
     setSelected([levelData.first]);
-    setTime(levelData.baseTime);
-  };
-
-  const handleReset = () => {
-    resetLevel();
-    setPause(false);
+    setTime(levelData.baseTime + extraTime);
   };
 
   const getCellBackgroundColor = (cell: number): string => {
@@ -177,8 +182,8 @@ const Level: React.FC<IProps> = ({
       </View>
       {renderLevel()}
       <View style={styles.buttons}>
-        <Button text={BUTTONS.reset} onPress={handleReset} />
-        <Button text={BUTTONS.menu} onPress={showMenu} />
+        <Button text={BUTTONS.items} onPress={itemsMenu} />
+        <Button text={BUTTONS.menu} onPress={pauseMenu} />
       </View>
     </View>
   );

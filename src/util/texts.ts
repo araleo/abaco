@@ -1,20 +1,25 @@
 export const BUTTONS = {
+  close: 'Fechar',
   continue: 'Continuar',
   items: 'Itens',
   menu: 'Menu',
-  newLevel: 'Novo Nível',
-  nextLevel: 'Próximo Nível',
+  newLevel: 'Novo nível',
+  nextLevel: 'Próximo nível',
   reset: 'Reiniciar',
   start: 'Iniciar',
 };
 
 export const LABELS = {
+  cost: 'Preço',
+  doubleScore: 'Pontos em dobro',
+  extraLifes: 'Vidas extras',
   lifes: 'Vidas',
   score: 'Pontos',
 };
 
 export const MESSAGES = {
   gameOver: 'Game Over.',
+  items: 'Itens',
   levelLose: 'Perdeu!',
   levelScore: 'Pontos (nível)',
   levelWin: 'Muito bem!',

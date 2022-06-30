@@ -8,12 +8,15 @@ import { BASE_LIFES } from './src/util/constants';
 import { COLORS } from './src/util/colors';
 import EndScreen from './src/components/endscreen/EndScreen';
 import { MESSAGES } from './src/util/texts';
-import levelData from './assets/levels/levels.json';
 import EndLevelModal from './src/components/menus/EndLevelModal';
+import ItemsModal, { IItem } from './src/components/menus/ItemsModal';
+import levelData from './assets/levels/levels.json';
+import itemsData from './assets/items/items.json';
 
 const App = () => {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [showMenuModal, setShowMenuModal] = useState<boolean>(true);
+  const [showItemsModal, setShowItemsModal] = useState<boolean>(false);
   const [showEndLevelModal, setShowEndLevelModal] = useState<boolean>(false);
   const [lastLevelScore, setLastLevelScore] = useState<number>(0);
   const [levelTries, setLevelTries] = useState<number>(0);
@@ -22,14 +25,17 @@ const App = () => {
   const [score, setScore] = useState<number>(0);
   const [level, setLevel] = useState<number>(0);
   const [lifes, setLifes] = useState<number>(BASE_LIFES);
+  const [scoreMultiplier, setScoreMultiplier] = useState<number>(1);
+  const [extraTime, setExtraTime] = useState<number>(0);
+  const [items, setItems] = useState<IItem[]>([]);
 
   useEffect(() => {
-    setScore(score + lastLevelScore);
-  }, [lastLevelScore]);
+    setItems(itemsData);
+  }, []);
 
-  const handleLifes = (amount: number) => {
-    setLifes(lifes + amount);
-  };
+  useEffect(() => {
+    setScore(score + lastLevelScore * scoreMultiplier);
+  }, [lastLevelScore]);
 
   const handleStart = () => {
     setIsComplete(false);
@@ -45,6 +51,10 @@ const App = () => {
     if (lastLevelScore > 0) {
       if (level < levelData.length - 1) {
         setLevel(level + 1);
+        setLevelTries(0);
+        if (scoreMultiplier !== 1) {
+          resetExtraScoreItem();
+        }
       } else {
         setIsComplete(true);
       }
@@ -60,6 +70,7 @@ const App = () => {
   };
 
   const handleEndLevel = () => {
+    resetExtraTimeItem();
     setPause(true);
     setShowEndLevelModal(true);
   };
@@ -72,6 +83,64 @@ const App = () => {
   const handleClosePauseMenu = () => {
     setShowMenuModal(false);
     setPause(false);
+  };
+
+  const handleOpenItemsMenu = () => {
+    setPause(true);
+    setShowItemsModal(true);
+  };
+
+  const handleCloseItemsMenu = () => {
+    setShowItemsModal(false);
+    setPause(false);
+  };
+
+  const handleLifes = (amount: number) => {
+    setLifes(lifes + amount);
+  };
+
+  const handleItem = (item: IItem) => {
+    setScore(score - item.cost);
+    updateItem(item);
+    if (item.name === 'extraLife') {
+      setLifes(lifes + 1);
+    } else if (item.name === 'extraScore') {
+      setScoreMultiplier(2);
+    } else if (item.name === 'extraTime') {
+      setExtraTime(20);
+    }
+  };
+
+  const findItem = (itemName: string) => {
+    return items.find((item) => item.name === itemName);
+  };
+
+  const updateItem = (item: IItem) => {
+    const _items: IItem[] = [];
+    for (const _item of items) {
+      const newItem = { ..._item };
+      if (newItem.id === item.id) {
+        newItem.available = !newItem.available;
+      }
+      _items.push(newItem);
+    }
+    setItems(_items);
+  };
+
+  const resetExtraScoreItem = () => {
+    setScoreMultiplier(1);
+    const extraScoreItem = findItem('extraScore');
+    if (extraScoreItem) {
+      updateItem(extraScoreItem);
+    }
+  };
+
+  const resetExtraTimeItem = () => {
+    setExtraTime(0);
+    const extraTimeItem = findItem('extraTime');
+    if (extraTimeItem) {
+      updateItem(extraTimeItem);
+    }
   };
 
   return (
@@ -95,8 +164,9 @@ const App = () => {
           levelData={levelData[level] as ILevelData}
           running={start && !pause}
           tries={levelTries}
-          setPause={setPause}
-          showMenu={handleOpenPauseMenu}
+          extraTime={extraTime}
+          pauseMenu={handleOpenPauseMenu}
+          itemsMenu={handleOpenItemsMenu}
           setScore={setLastLevelScore}
           setLifes={handleLifes}
           endLevel={handleEndLevel}
@@ -117,6 +187,14 @@ const App = () => {
         lifes={lifes}
         restart={handleRestartLevel}
         nextLevel={handleNextLevel}
+      />
+      <ItemsModal
+        visible={showItemsModal}
+        score={score}
+        lifes={lifes}
+        items={items}
+        handleItem={handleItem}
+        closeModal={handleCloseItemsMenu}
       />
     </View>
   );

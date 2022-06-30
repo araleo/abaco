@@ -1,0 +1,27 @@
+[
+  {
+    "id": 0,
+    "name": "extraLife",
+    "prettyName": "Vida extra",
+    "tooltip": "Ganha uma vida",
+    "cost": 100,
+    "available": true
+  },
+  {
+    "id": 1,
+    "name": "extraScore",
+    "prettyName": "Pontos em dobro",
+    "tooltip": "Ganha o dobro de pontos ao concluir o próximo nível",
+    "cost": 100,
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "extraTime",
+    "prettyName": "Mais tempo",
+    "tooltip": "Adiciona 20 segundos à sua tentativa atual",
+    "cost": 100,
+    "available": true
+  }
+
+]
