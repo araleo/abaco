@@ -3,7 +3,7 @@
     "id": 0,
     "name": "extraLife",
     "prettyName": "Vida extra",
-    "tooltip": "Ganha uma vida",
+    "tooltip": "Ganha uma vida extra",
     "cost": 100,
     "available": true
   },
@@ -11,7 +11,7 @@
     "id": 1,
     "name": "extraScore",
     "prettyName": "Pontos em dobro",
-    "tooltip": "Ganha o dobro de pontos ao concluir o próximo nível",
+    "tooltip": "Dobra os pontos ganhos no próximo nível",
     "cost": 100,
     "available": true
   },
@@ -19,7 +19,7 @@
     "id": 2,
     "name": "extraTime",
     "prettyName": "Mais tempo",
-    "tooltip": "Adiciona 20 segundos à sua tentativa atual",
+    "tooltip": "Adiciona 20 segundos ao tempo",
     "cost": 100,
     "available": true
   }

@@ -68,7 +68,6 @@ const Level: React.FC<IProps> = ({
     if (compareArrays(levelData.solution, selected)) {
       const levelScore = Math.max(time + levelData.baseScore - tries * 10, 0);
       setScore(levelScore);
-      endLevel();
     } else {
       handleNextCell();
     }
@@ -87,7 +86,6 @@ const Level: React.FC<IProps> = ({
     if (time <= 0) {
       setScore(0);
       setLifes(-1);
-      endLevel();
     }
   }, [time]);
 
@@ -182,8 +180,8 @@ const Level: React.FC<IProps> = ({
       </View>
       {renderLevel()}
       <View style={styles.buttons}>
-        <Button text={BUTTONS.items} onPress={itemsMenu} />
-        <Button text={BUTTONS.menu} onPress={pauseMenu} />
+        <Button text={BUTTONS.items} onPress={itemsMenu} small={true} />
+        <Button text={BUTTONS.menu} onPress={pauseMenu} small={true} />
       </View>
     </View>
   );
@@ -210,6 +208,7 @@ const styles = StyleSheet.create({
   },
   cellText: {
     fontSize: 22,
+    fontWeight: 'bold',
   },
   title: {
     flex: 1,
@@ -229,7 +228,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tooltip: {
-    fontSize: 18,
+    fontSize: 24,
   },
 });
 

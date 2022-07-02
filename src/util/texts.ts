@@ -11,20 +11,26 @@ export const BUTTONS = {
 
 export const LABELS = {
   cost: 'Preço',
+  currentLevel: 'Nível atual',
   doubleScore: 'Pontos em dobro',
   extraLifes: 'Vidas extras',
   lifes: 'Vidas',
+  multiplier: 'Multiplicador',
+  penalties: 'Penalidades',
+  previousScore: 'Anterior',
   score: 'Pontos',
+  totalScore: 'Total',
 };
 
 export const MESSAGES = {
   gameOver: 'Game Over.',
-  items: 'Itens',
+  itemsDescription: 'Compre itens com os seus pontos para melhorar suas chances.',
+  itemNotAvailable: 'Você já comprou esse item recentemente',
+  itemsTitle: 'Itens',
   levelLose: 'Perdeu!',
-  levelScore: 'Pontos (nível)',
   levelWin: 'Muito bem!',
+  notEnoughFunds: 'Você não possui pontos suficientes',
   score: 'Sua pontuação',
-  totalScore: 'Pontos (total)',
   youWin:
     'Parabéns! Você concluiu todos os níveis. Aguarde o lançamento dos próximos.',
 };

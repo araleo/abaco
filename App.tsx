@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Level, { ILevelData } from './src/components/level/Level';
 import MenuModal from './src/components/menus/MenuModal';
-import Top from './src/components/top/Top';
+import Top from './src/components/UI/Top';
 import { BASE_LIFES } from './src/util/constants';
 import { COLORS } from './src/util/colors';
 import EndScreen from './src/components/endscreen/EndScreen';
@@ -28,6 +28,7 @@ const App = () => {
   const [scoreMultiplier, setScoreMultiplier] = useState<number>(1);
   const [extraTime, setExtraTime] = useState<number>(0);
   const [items, setItems] = useState<IItem[]>([]);
+  const [endLevel, setEndLevel] = useState<boolean>(false);
 
   useEffect(() => {
     setItems(itemsData);
@@ -36,6 +37,12 @@ const App = () => {
   useEffect(() => {
     setScore(score + lastLevelScore * scoreMultiplier);
   }, [lastLevelScore]);
+
+  useEffect(() => {
+    if (endLevel === true) {
+      handleEndLevel();
+    }
+  }, [endLevel]);
 
   const handleStart = () => {
     setIsComplete(false);
@@ -169,7 +176,6 @@ const App = () => {
           itemsMenu={handleOpenItemsMenu}
           setScore={setLastLevelScore}
           setLifes={handleLifes}
-          endLevel={handleEndLevel}
         />
       )}
       <MenuModal
@@ -183,6 +189,8 @@ const App = () => {
         visible={showEndLevelModal}
         playerWon={lastLevelScore > 0}
         levelScore={lastLevelScore}
+        levelTries={levelTries}
+        scoreMultiplier={scoreMultiplier}
         totalScore={score}
         lifes={lifes}
         restart={handleRestartLevel}
@@ -206,6 +214,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightestGrey,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
 });
 
