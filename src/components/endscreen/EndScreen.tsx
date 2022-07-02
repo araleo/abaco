@@ -11,11 +11,19 @@ interface IProps {
 const EndScreen: React.FC<IProps> = ({ text, score, handleRestart }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.display}>{text}</Text>
-      <Text style={styles.display}>
-        {MESSAGES.score}: {score.toString()}
-      </Text>
-      <Button text={BUTTONS.start} onPress={handleRestart} />
+      <View style={styles.message}>
+        <Text style={styles.display}>{text}</Text>
+      </View>
+
+      <View style={styles.score}>
+        <Text style={styles.scoreDisplay}>
+          {MESSAGES.score}: {score.toString()}
+        </Text>
+      </View>
+
+      <View style={styles.button}>
+        <Button text={BUTTONS.start} onPress={handleRestart} />
+      </View>
     </View>
   );
 };
@@ -27,8 +35,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
   },
+  message: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  score: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  button: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   display: {
     fontSize: 20,
+  },
+  scoreDisplay: {
+    fontSize: 30,
   },
 });
 

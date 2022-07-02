@@ -28,7 +28,6 @@ const App = () => {
   const [scoreMultiplier, setScoreMultiplier] = useState<number>(1);
   const [extraTime, setExtraTime] = useState<number>(0);
   const [items, setItems] = useState<IItem[]>([]);
-  const [endLevel, setEndLevel] = useState<boolean>(false);
 
   useEffect(() => {
     setItems(itemsData);
@@ -36,13 +35,10 @@ const App = () => {
 
   useEffect(() => {
     setScore(score + lastLevelScore * scoreMultiplier);
-  }, [lastLevelScore]);
-
-  useEffect(() => {
-    if (endLevel === true) {
+    if (start) {
       handleEndLevel();
     }
-  }, [endLevel]);
+  }, [lastLevelScore]);
 
   const handleStart = () => {
     setIsComplete(false);

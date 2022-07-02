@@ -32,7 +32,6 @@ interface IProps {
   setLifes: (lifes: number) => void;
   pauseMenu: () => void;
   itemsMenu: () => void;
-  endLevel: () => void;
 }
 
 const Level: React.FC<IProps> = ({
@@ -44,7 +43,6 @@ const Level: React.FC<IProps> = ({
   setLifes,
   pauseMenu,
   itemsMenu,
-  endLevel,
 }) => {
   const [level, setLevel] = useState<number[][]>([]);
   const [selected, setSelected] = useState<number[]>([]);
