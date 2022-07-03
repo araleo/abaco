@@ -74,6 +74,7 @@ const App = () => {
 
   const handleEndLevel = () => {
     resetExtraTimeItem();
+    resetExtraLifeItem();
     setPause(true);
     setShowEndLevelModal(true);
   };
@@ -114,10 +115,6 @@ const App = () => {
     }
   };
 
-  const findItem = (itemName: string) => {
-    return items.find((item) => item.name === itemName);
-  };
-
   const updateItem = (item: IItem) => {
     const _items: IItem[] = [];
     for (const _item of items) {
@@ -128,6 +125,10 @@ const App = () => {
       _items.push(newItem);
     }
     setItems(_items);
+  };
+
+  const findItem = (itemName: string) => {
+    return items.find((item) => item.name === itemName);
   };
 
   const resetExtraScoreItem = () => {
@@ -143,6 +144,13 @@ const App = () => {
     const extraTimeItem = findItem('extraTime');
     if (extraTimeItem) {
       updateItem(extraTimeItem);
+    }
+  };
+
+  const resetExtraLifeItem = () => {
+    const extraLifeItem = findItem('extraLife');
+    if (extraLifeItem) {
+      updateItem(extraLifeItem);
     }
   };
 

@@ -19,6 +19,6 @@ npm start
 - [x] Add scoring system
   - [x] Each round has a base score according to it's difficulty
   - [x] Each unsucesful try on a level reduces it's base score
+- [x] UI
 - [ ] Add tests
-- [ ] UI
 - [ ] Internationalization (en/pt)
