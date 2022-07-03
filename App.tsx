@@ -116,15 +116,11 @@ const App = () => {
   };
 
   const updateItem = (item: IItem) => {
-    const _items: IItem[] = [];
     for (const _item of items) {
-      const newItem = { ..._item };
-      if (newItem.id === item.id) {
-        newItem.available = !newItem.available;
+      if (_item.id === item.id) {
+        _item.available = !_item.available;
       }
-      _items.push(newItem);
     }
-    setItems(_items);
   };
 
   const findItem = (itemName: string) => {
@@ -142,14 +138,14 @@ const App = () => {
   const resetExtraTimeItem = () => {
     setExtraTime(0);
     const extraTimeItem = findItem('extraTime');
-    if (extraTimeItem) {
+    if (extraTimeItem && extraTimeItem.available === false) {
       updateItem(extraTimeItem);
     }
   };
 
   const resetExtraLifeItem = () => {
     const extraLifeItem = findItem('extraLife');
-    if (extraLifeItem) {
+    if (extraLifeItem && extraLifeItem.available === false) {
       updateItem(extraLifeItem);
     }
   };

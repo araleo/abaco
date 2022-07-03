@@ -71,12 +71,12 @@ const EndLevelModal: React.FC<IProps> = ({
             <StatsText text={'+ ' + levelScore} color={COLORS.success} />
           </StatsView>
           <StatsView>
-            <StatsText text={LABELS.penalties} color={COLORS.error} />
-            <StatsText text={'- ' + levelTries * 10} color={COLORS.error} />
-          </StatsView>
-          <StatsView>
             <StatsText text={LABELS.multiplier} color={COLORS.detail} />
             <StatsText text={'* ' + scoreMultiplier} color={COLORS.detail} />
+          </StatsView>
+          <StatsView>
+            <StatsText text={LABELS.penalties} color={COLORS.error} />
+            <StatsText text={'- ' + levelTries * 10} color={COLORS.error} />
           </StatsView>
           <StatsView>
             <StatsText text={LABELS.totalScore} />
