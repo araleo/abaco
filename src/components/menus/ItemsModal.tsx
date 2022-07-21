@@ -114,12 +114,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   titleContainer: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'space-evenly',
+    marginBottom: 20,
   },
   title: {
     fontSize: 40,
     textAlign: 'center',
+    marginBottom: 20,
   },
   description: {
     fontSize: 20,
@@ -137,10 +139,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   itemName: {
-    fontSize: 24,
+    fontSize: 20,
   },
   itemDescription: {
-    fontSize: 18,
+    fontSize: 16,
     marginBottom: 12,
   },
   itemCost: {
@@ -160,7 +162,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonsContainer: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
   },
 });

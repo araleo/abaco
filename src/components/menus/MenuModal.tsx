@@ -1,6 +1,6 @@
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import { COLORS } from '../../util/colors';
-import { BUTTONS, LOREM } from '../../util/texts';
+import { BUTTONS, DESCRIPTION } from '../../util/texts';
 import Button from '../UI/Button';
 import Title from '../UI/Title';
 
@@ -25,7 +25,7 @@ const MenuModal: React.FC<IProps> = ({
           <Title />
         </View>
         <View style={styles.description}>
-          <Text style={styles.descriptionText}>{LOREM}</Text>
+          <Text style={styles.descriptionText}>{DESCRIPTION}</Text>
         </View>
         <View style={styles.buttons}>
           {started && (

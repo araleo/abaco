@@ -35,5 +35,4 @@ export const MESSAGES = {
     'Parabéns! Você concluiu todos os níveis. Aguarde o lançamento dos próximos.',
 };
 
-export const LOREM =
-  'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed aut iusto ad quae ea! Soluta non laudantium ad laborum deleniti voluptatum, voluptatibus quam quisquam itaque id, quasi illo odit ex.';
+export const DESCRIPTION = 'Ábaco é um jogo em que o objetivo é contar. Siga as instruções de cada nível e boa diversão!'
